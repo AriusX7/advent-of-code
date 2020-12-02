@@ -42,3 +42,28 @@ fn part_two(numbers: &HashSet<u32>) -> Option<u32> {
 
     None
 }
+
+#[cfg(test)]
+mod test_day_1 {
+    use super::*;
+
+    fn get_input() -> &'static str {
+        "1946\n1859\n16\n1432\n588\n1873\n1216\n347\n1657"
+    }
+
+    #[test]
+    fn test_part1() {
+        assert_eq!(
+            part_one(&get_numbers(get_input())),
+            Some(842016),
+        )
+    }
+
+    #[test]
+    fn test_part2() {
+        assert_eq!(
+            part_two(&get_numbers(get_input())),
+            Some(9199664),
+        )
+    }
+}
