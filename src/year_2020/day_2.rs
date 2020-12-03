@@ -71,8 +71,11 @@ fn part_two(passwords: &Vec<Password>) -> u32 {
     for password in passwords {
         let policy = &password.policy;
 
-        let min_char = password.pass.chars().nth(policy.min as usize - 1).expect("Expected valid password.");
-        let max_char = password.pass.chars().nth(policy.max as usize - 1).expect("Expected valid password.");
+        let mut chars = password.pass.chars();
+        let min_idx = policy.min as usize - 1;
+
+        let min_char = chars.nth(min_idx).expect("Expected valid password.");
+        let max_char = chars.nth(policy.max as usize - min_idx - 2).expect("Expected valid password.");
 
         if (min_char == policy.letter) ^ (max_char == policy.letter) {
             total += 1;
