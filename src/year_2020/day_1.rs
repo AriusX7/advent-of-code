@@ -53,17 +53,11 @@ mod test_day_1 {
 
     #[test]
     fn test_part1() {
-        assert_eq!(
-            part_one(&get_numbers(get_input())),
-            Some(842016),
-        )
+        assert_eq!(part_one(&get_numbers(get_input())), Some(842016),)
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(
-            part_two(&get_numbers(get_input())),
-            Some(9199664),
-        )
+        assert_eq!(part_two(&get_numbers(get_input())), Some(9199664),)
     }
 }

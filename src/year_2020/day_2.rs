@@ -2,7 +2,7 @@
 struct PasswordPolicy {
     letter: char,
     min: u8,
-    max: u8
+    max: u8,
 }
 
 #[derive(Debug, PartialEq)]
@@ -16,7 +16,7 @@ fn split_once<'a>(input: &'a str, pat: &str) -> Option<(&'a str, &'a str)> {
 
     if let Some(first) = split.next() {
         if let Some(rest) = split.next() {
-            return Some((first, rest))
+            return Some((first, rest));
         }
     }
 
@@ -25,29 +25,28 @@ fn split_once<'a>(input: &'a str, pat: &str) -> Option<(&'a str, &'a str)> {
 
 #[aoc_generator(day2)]
 fn get_passwords(input: &str) -> Vec<Password> {
-    input.lines().map(|line| {
-        let (min_str, rest) = split_once(line, "-").expect("Expected valid password policy.");
+    input
+        .lines()
+        .map(|line| {
+            let (min_str, rest) = split_once(line, "-").expect("Expected valid password policy.");
 
-        let min = min_str.parse().expect("Expected valid password policy.");
+            let min = min_str.parse().expect("Expected valid password policy.");
 
-        let (max_str, rest) = split_once(rest, " ").expect("Expected valid password policy.");
+            let (max_str, rest) = split_once(rest, " ").expect("Expected valid password policy.");
 
-        let max = max_str.parse().expect("Expected valid password policy.");
+            let max = max_str.parse().expect("Expected valid password policy.");
 
-        let (letter_str, rest) = split_once(rest, ":").expect("Expected valid password policy.");
+            let (letter_str, rest) =
+                split_once(rest, ":").expect("Expected valid password policy.");
 
-        let letter = letter_str.parse().expect("Expected valid password policy.");
+            let letter = letter_str.parse().expect("Expected valid password policy.");
 
-        Password {
-            pass: rest.trim().to_string(),
-            policy: PasswordPolicy {
-                letter,
-                min,
-                max
+            Password {
+                pass: rest.trim().to_string(),
+                policy: PasswordPolicy { letter, min, max },
             }
-        }
-    })
-    .collect()
+        })
+        .collect()
 }
 
 #[aoc(day2, part1)]
@@ -140,7 +139,9 @@ mod test_day_2 {
     #[test]
     fn test_part_two() {
         assert_eq!(
-            part_two(&get_passwords("2-5 a: aaa\n3-14 c: abccc\n11-13 k: pqrsssakwbbca")),
+            part_two(&get_passwords(
+                "2-5 a: aaa\n3-14 c: abccc\n11-13 k: pqrsssakwbbca"
+            )),
             2
         )
     }
