@@ -50,7 +50,7 @@ fn get_passwords(input: &str) -> Vec<Password> {
 }
 
 #[aoc(day2, part1)]
-fn part_one(passwords: &Vec<Password>) -> u32 {
+fn part_one(passwords: &[Password]) -> u32 {
     let mut total = 0;
 
     for password in passwords {
@@ -64,7 +64,7 @@ fn part_one(passwords: &Vec<Password>) -> u32 {
 }
 
 #[aoc(day2, part2)]
-fn part_two(passwords: &Vec<Password>) -> u32 {
+fn part_two(passwords: &[Password]) -> u32 {
     let mut total = 0;
 
     for password in passwords {
