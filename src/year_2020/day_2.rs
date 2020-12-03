@@ -75,7 +75,14 @@ fn part_two(passwords: &Vec<Password>) -> u32 {
         let min_idx = policy.min as usize - 1;
 
         let min_char = chars.nth(min_idx).expect("Expected valid password.");
-        let max_char = chars.nth(policy.max as usize - min_idx - 2).expect("Expected valid password.");
+        let max_char = if let Some(c) = chars.nth(policy.max as usize - min_idx - 2) {
+            c
+        } else {
+            if min_char == policy.letter {
+                total += 1;
+            }
+            continue;
+        };
 
         if (min_char == policy.letter) ^ (max_char == policy.letter) {
             total += 1;
@@ -119,6 +126,22 @@ mod test_day_2 {
                     }
                 },
             ]
+        )
+    }
+
+    #[test]
+    fn test_part_one() {
+        assert_eq!(
+            part_one(&get_passwords("2-5 a: aaa\n3-14 c: abccc\n11-13 k: pqrs")),
+            2
+        )
+    }
+
+    #[test]
+    fn test_part_two() {
+        assert_eq!(
+            part_two(&get_passwords("2-5 a: aaa\n3-14 c: abccc\n11-13 k: pqrsssakwbbca")),
+            2
         )
     }
 }
