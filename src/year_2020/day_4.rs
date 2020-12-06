@@ -112,10 +112,10 @@ fn part_two(data: &[String]) -> u32 {
         }
 
         // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-        if split_once(&item, "hcl:")
+        let hcl_res = split_once(&item, "hcl:")
             .and_then(|(_, rest)| {
                 rest.get(0..7).and_then(|pattern| {
-                    if pattern.starts_with("#")
+                    if pattern.starts_with('#')
                         && pattern
                             .get(1..7)
                             .unwrap()
@@ -129,13 +129,14 @@ fn part_two(data: &[String]) -> u32 {
                     }
                 })
             })
-            .is_none()
-        {
+            .is_none();
+
+        if hcl_res {
             continue;
         }
 
         // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-        if split_once(&item, "ecl:")
+        let ecl_res = split_once(&item, "ecl:")
             .and_then(|(_, rest)| {
                 rest.get(0..3).and_then(|color| {
                     if ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(&color)
@@ -147,13 +148,14 @@ fn part_two(data: &[String]) -> u32 {
                     }
                 })
             })
-            .is_none()
-        {
+            .is_none();
+
+        if ecl_res {
             continue;
         }
 
         // pid (Passport ID) - a nine-digit number, including leading zeroes.
-        if split_once(&item, "pid:")
+        let pid_res = split_once(&item, "pid:")
             .and_then(|(_, rest)| {
                 rest.get(0..9).and_then(|d_str| {
                     if d_str.parse::<u32>().is_ok()
@@ -165,8 +167,9 @@ fn part_two(data: &[String]) -> u32 {
                     }
                 })
             })
-            .is_none()
-        {
+            .is_none();
+
+        if pid_res {
             continue;
         }
 

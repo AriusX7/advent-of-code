@@ -11,7 +11,7 @@ fn get_boarding_ids(input: &str) -> Vec<u16> {
             // Seat ID is 8 * row + column, which is the same as considering the pass as a
             // 10-bit binary string where "L" and "F" represent 0 and "R" and "B" represent 1.
             l.chars().fold(0, |acc, ch| match ch {
-                'F' | 'L' => (acc << 1) | 0,
+                'F' | 'L' => acc << 1,
                 'B' | 'R' => (acc << 1) | 1,
                 _ => unreachable!(),
             })
