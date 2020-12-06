@@ -47,25 +47,29 @@ fn check_height(input: &str) -> bool {
         rest.split_ascii_whitespace().next().and_then(|hgt| {
             if hgt.len() == 4 {
                 if hgt.get(2..4).unwrap() == "in" {
-                    hgt.get(0..2).and_then(|d_str| d_str.parse::<u8>().ok().and_then(|d| {
-                        if d >= 59 && d <= 76 {
-                            Some(())
-                        } else {
-                            None
-                        }
-                    }))
+                    hgt.get(0..2).and_then(|d_str| {
+                        d_str.parse::<u8>().ok().and_then(|d| {
+                            if d >= 59 && d <= 76 {
+                                Some(())
+                            } else {
+                                None
+                            }
+                        })
+                    })
                 } else {
                     None
                 }
             } else if hgt.len() == 5 {
                 if hgt.get(3..5).unwrap() == "cm" {
-                    hgt.get(0..3).and_then(|d_str| d_str.parse::<u8>().ok().and_then(|d| {
-                        if d >= 150 && d <= 193 {
-                            Some(())
-                        } else {
-                            None
-                        }
-                    }))
+                    hgt.get(0..3).and_then(|d_str| {
+                        d_str.parse::<u8>().ok().and_then(|d| {
+                            if d >= 150 && d <= 193 {
+                                Some(())
+                            } else {
+                                None
+                            }
+                        })
+                    })
                 } else {
                     None
                 }
@@ -152,7 +156,9 @@ fn part_two(data: &[String]) -> u32 {
         if split_once(&item, "pid:")
             .and_then(|(_, rest)| {
                 rest.get(0..9).and_then(|d_str| {
-                    if d_str.parse::<u32>().is_ok() && rest.get(9..10).unwrap_or(" ").trim().is_empty() {
+                    if d_str.parse::<u32>().is_ok()
+                        && rest.get(9..10).unwrap_or(" ").trim().is_empty()
+                    {
                         Some(())
                     } else {
                         None
