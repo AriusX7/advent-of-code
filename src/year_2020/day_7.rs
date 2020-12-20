@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use regex::Regex;
+use std::collections::HashMap;
 
 use crate::split_once;
 
@@ -14,22 +14,24 @@ struct Bag {
 fn get_bags_map(input: &str) -> Vec<Bag> {
     let line_re = Regex::new(r#"(\d+)\s(\w+\s\w+)\sbags?"#).unwrap();
 
-    input.lines().map(|line| {
-        let (clr, rest) = split_once(line, "bags ").expect("Expected valid line.");
+    input
+        .lines()
+        .map(|line| {
+            let (clr, rest) = split_once(line, "bags ").expect("Expected valid line.");
 
-        let color = clr.trim().to_string();
+            let color = clr.trim().to_string();
 
-        let mut bags = HashMap::new();
-        for cap in line_re.captures_iter(rest) {
-            let quan = cap[1].parse().expect("Expected valid number.");
-            let name = cap[2].to_string();
+            let mut bags = HashMap::new();
+            for cap in line_re.captures_iter(rest) {
+                let quan = cap[1].parse().expect("Expected valid number.");
+                let name = cap[2].to_string();
 
-            bags.insert(name, quan);
-        }
+                bags.insert(name, quan);
+            }
 
-        Bag { color, bags }
-    })
-    .collect()
+            Bag { color, bags }
+        })
+        .collect()
 }
 
 fn get_bag<'a>(bags: &'a [Bag], color: &str) -> Option<&'a Bag> {
