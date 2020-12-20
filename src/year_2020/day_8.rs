@@ -38,30 +38,13 @@ fn get_instructions(input: &str) -> Vec<Instruction> {
 
 #[aoc(day8, part1)]
 fn part_one(instructions: &[Instruction]) -> i32 {
-    let mut accumulator = 0;
-
-    let mut index = 0;
-    let mut visited = Vec::new();
-
-    while !visited.contains(&index) {
-        visited.push(index);
-
-        let instruction = instructions.get(index).expect("Expected valid index");
-
-        match instruction {
-            Instruction::NOP(_) => index += 1,
-            Instruction::Accumulator(acc) => {
-                accumulator += *acc;
-                index += 1;
-            }
-            Instruction::Jump(j) => index += *j as usize,
-        }
+    match execute(instructions) {
+        Ok(r) => r,
+        Err(r) => r,
     }
-
-    accumulator
 }
 
-fn execute_without_loop(instructions: &[Instruction]) -> Option<i32> {
+fn execute(instructions: &[Instruction]) -> Result<i32, i32> {
     let mut accumulator = 0;
 
     let mut index = 0;
@@ -69,7 +52,7 @@ fn execute_without_loop(instructions: &[Instruction]) -> Option<i32> {
 
     loop {
         if visited.contains(&index) {
-            return None;
+            return Err(accumulator);
         }
 
         visited.push(index);
@@ -84,11 +67,9 @@ fn execute_without_loop(instructions: &[Instruction]) -> Option<i32> {
                 Instruction::Jump(j) => index += *j as usize,
             }
         } else {
-            break;
+            return Ok(accumulator);
         }
     }
-
-    Some(accumulator)
 }
 
 #[aoc(day8, part2)]
@@ -103,7 +84,7 @@ fn part_two(instructions: &[Instruction]) -> i32 {
         };
 
         owned[i] = new;
-        if let Some(acc) = execute_without_loop(&owned) {
+        if let Ok(acc) = execute(&owned) {
             return acc;
         } else {
             continue;
