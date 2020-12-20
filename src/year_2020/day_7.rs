@@ -35,7 +35,7 @@ fn get_bags_map(input: &str) -> Vec<Bag> {
 }
 
 fn get_bag<'a>(bags: &'a [Bag], color: &str) -> Option<&'a Bag> {
-    bags.iter().find(|&b| &b.color == color)
+    bags.iter().find(|&b| b.color == color)
 }
 
 fn find_shiny_gold_bag(bag: &Bag, bags: &[Bag]) -> bool {
