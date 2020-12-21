@@ -33,11 +33,11 @@ fn min_and_max(data: &[u64]) -> (u64, u64) {
     let mut min = &u64::MAX;
 
     for num in data {
-        if num > &max {
+        if num > max {
             max = num;
         }
 
-        if num < &min {
+        if num < min {
             min = num;
         }
     }
